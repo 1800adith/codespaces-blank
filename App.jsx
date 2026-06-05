@@ -1,43 +1,31 @@
 // src/App.jsx
-import { Toaster } from "@/components/ui/toaster"
+import { Toaster } from "./components/ui/toaster" // 👈 Fixed
 import { QueryClientProvider } from '@tanstack/react-query'
-import { queryClientInstance } from '@/lib/query-client'
+import { queryClientInstance } from './lib/query-client' // 👈 Fixed
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PageNotFound from './lib/PageNotFound';
-import { AuthProvider, useAuth } from '@/lib/AuthContext';
-import UserNotRegisteredError from '@/components/UserNotRegisteredError';
+import { AuthProvider, useAuth } from './lib/AuthContext'; // 👈 Fixed
+import UserNotRegisteredError from './components/UserNotRegisteredError'; // 👈 Fixed
 import ScrollToTop from './components/ScrollToTop';
-import ProtectedRoute from '@/components/ProtectedRoute';
+import ProtectedRoute from './components/ProtectedRoute'; // 👈 Fixed
 import { Navigate } from 'react-router-dom';
-import Login from '@/pages/Login';
-import Register from '@/pages/Register';
-import ForgotPassword from '@/pages/ForgotPassword';
-import ResetPassword from '@/pages/ResetPassword';
-import Gallery from '@/pages/Gallery';
-import CalendarView from '@/pages/CalendarView';
-import HomePage from '@/pages/HomePage';
-import PeoplePage from '@/pages/PeoplePage';
+import Login from './pages/Login'; // 👈 Fixed
+import Register from './pages/Register'; // 👈 Fixed
+import ForgotPassword from './pages/ForgotPassword'; // 👈 Fixed
+import ResetPassword from './pages/ResetPassword'; // 👈 Fixed
+import Gallery from './pages/Gallery'; // 👈 Fixed
+import CalendarView from './pages/CalendarView'; // 👈 Fixed
+import HomePage from './pages/HomePage'; // 👈 Fixed
+import PeoplePage from './pages/PeoplePage'; // 👈 Fixed
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
-
-  // BYPASSED: Commented out to prevent the infinite blank loading screen loop
-  /*
-  if (isLoadingPublicSettings || isLoadingAuth) {
-    return (
-      <div className="fixed inset-0 flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-slate-200 border-t-slate-800 rounded-full animate-spin"></div>
-      </div>
-    );
-  }
-  */
 
   // Handle authentication errors
   if (authError) {
     if (authError.type === 'user_not_registered') {
       return <UserNotRegisteredError />;
     } else if (authError.type === 'auth_required') {
-      // Redirect to login automatically
       navigateToLogin();
       return null;
     }
@@ -61,9 +49,7 @@ const AuthenticatedApp = () => {
   );
 };
 
-
 function App() {
-
   return (
     <AuthProvider>
       <QueryClientProvider client={queryClientInstance}>
